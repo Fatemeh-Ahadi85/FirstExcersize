@@ -15,11 +15,23 @@ public class login {
         this.Password = input.nextInt();
     }
 
-    public String getUserName(String UserName){
-        return UserName;
+    public String getUserName(){
+        SignUp signUp = new SignUp();
+        if(signUp.UserName.equals(this.UserName)){
+            return UserName;
+        }
+        else{
+            return "Your UserName is incorrect";
+        }
     }
 
-    public int getPassword(int Password){
-        return Password;
+    public String getPassword(){
+        SignUp signUp = new SignUp();
+        if(signUp.Password == Password){
+            return String.valueOf(Password);
+        }
+        else{
+            return "Your password is incorrect";
+        }
     }
 }

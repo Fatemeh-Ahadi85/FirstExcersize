@@ -6,8 +6,8 @@ public class SignUp {
 
     Scanner input = new Scanner(System.in);
 
-    private String UserName;
-    private int Password;
+    public String UserName;
+    public int Password;
 
     SignUp(){
         System.out.println("Enter your UserName: ");
@@ -16,11 +16,11 @@ public class SignUp {
         this.Password = input.nextInt();
     }
 
-    public String getUserName(String UserName){
+    public String getUserName(){
         return UserName;
     }
 
-    public int getPassword(int Password){
+    public int getPassword(){
         return Password;
     }
 }
