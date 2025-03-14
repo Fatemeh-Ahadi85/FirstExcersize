@@ -5,32 +5,39 @@ import java.util.HashMap;
 import java.util.zip.DataFormatException;
 
 public class jsonObject extends jsonParser {
-    private String input;
 
-    public jsonObject() throws IOException {
-        this.input = super.input;
+    public jsonObject() throws IOException, DataFormatException {
+        super();
     }
 
-    public HashMap<String, String> Map(String input) throws DataFormatException, IOException {
-        HashMap<String, String> map = new HashMap();
-        input = this.input;
+    public HashMap<String,Object> Map(String input) throws DataFormatException, IOException {
+        HashMap<String, Object> map = new HashMap();
         Format('{',input);
+        findPairs findBracePair = new findBracePairs(input);
+        input = input.substring(0,findBracePair.pairs()+1);
         if ( input.charAt(input.length() - 1) != '}') {
             throw new DataFormatException("Your Jason format is incorrect");
         }
         input = input.substring(1, input.length() - 1);
         while(input.length()>0) {
             String key = getKey(input);
-            input = input.substring(key.length() + 1);
+            input = input.substring(key.length() + 2);
             Format(':', input);
             input = input.substring(1);
-            String value = getValue(input);
-
+            Object value = getValue(input);
+            if(input.charAt(0)=='\"') {
+                input = input.substring(String.valueOf(value).length()+2);
+            }
+            else {
+                input = input.substring(String.valueOf(value).length());
+            }
             map.put(key, value);
             if(input.length()>0){
                 Format(',',input);
+                input = input.substring(1);
             }
         }
+
         return map;
     }
 
@@ -45,7 +52,7 @@ public class jsonObject extends jsonParser {
         return input;
     }
 
-    public String getValue(String input) throws DataFormatException, IOException {
+    public Object getValue(String input) throws DataFormatException, IOException {
         if(input.charAt(0)=='\"'){
             jsonLiteral string = new StringLiteral(input);
             return string.Value();
@@ -68,11 +75,11 @@ public class jsonObject extends jsonParser {
         }
         else if (input.charAt(0)=='{'){
             jsonObject object = new jsonObject();
-            return String.valueOf(object.Map(input));
+            return object.Map(input);
         }
         else if (input.charAt(0)=='['){
-            jsonArray jsonArray = new jsonArray(input);
-            return String.valueOf(jsonArray.Array(input));
+            jsonArray jsonArray = new jsonArray();
+            return jsonArray.Array(input);
         }
         return "Your Jason format is incorrect";
     }
@@ -82,4 +89,5 @@ public class jsonObject extends jsonParser {
             throw new DataFormatException("Your Jason format is incorrect");
         }
     }
+
 }

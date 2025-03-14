@@ -1,6 +1,8 @@
 package FirstExersize;
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.zip.DataFormatException;
 
 public class login {
     Scanner input = new Scanner(System.in);
@@ -13,25 +15,17 @@ public class login {
         this.UserName = input.nextLine();
         System.out.println("Enter your Password: ");
         this.Password = input.nextInt();
+
     }
 
-    public String getUserName(){
-        SignUp signUp = new SignUp();
-        if(signUp.UserName.equals(this.UserName)){
-            return UserName;
+    public Object get() throws DataFormatException, IOException {
+        jsonParser jsonParser = new jsonParser();
+        if(jsonParser.value(this.UserName,String.valueOf(this.Password))){
+            return true;
         }
-        else{
-            return "Your UserName is incorrect";
-        }
-    }
-
-    public String getPassword(){
-        SignUp signUp = new SignUp();
-        if(signUp.Password == Password){
-            return String.valueOf(Password);
-        }
-        else{
-            return "Your password is incorrect";
+        else {
+            System.out.println("Please Enter Your Details Carefully!");
+            return new login();
         }
     }
 }
