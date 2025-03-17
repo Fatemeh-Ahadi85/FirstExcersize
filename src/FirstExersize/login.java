@@ -19,8 +19,8 @@ public class login {
     }
 
     public Object get() throws DataFormatException, IOException {
-        jsonParser jsonParser = new jsonParser();
-        if(jsonParser.value(this.UserName,String.valueOf(this.Password))){
+        isUserProfileTrue isUserProfileTrue = new isUserProfileTrue();
+        if(isUserProfileTrue.isUserExist(this.UserName,String.valueOf(this.Password))){
             return true;
         }
         else {

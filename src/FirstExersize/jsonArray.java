@@ -6,7 +6,7 @@ import java.util.zip.DataFormatException;
 
 public class jsonArray extends jsonParser {
 
-    public jsonArray() throws IOException, DataFormatException {
+    public jsonArray() throws IOException {
         super();
     }
     public ArrayList<Object>Array(String input) throws DataFormatException, IOException {
@@ -46,7 +46,7 @@ public class jsonArray extends jsonParser {
             else if(input.charAt(0)=='{'){
                 jsonObject jsonObject = new jsonObject();
                 list.add(jsonObject.Map(input));
-                input = input.substring(String.valueOf(jsonObject.Map(input)).length()+6);
+                input = input.substring(String.valueOf(jsonObject.Map(input)).length()+5);
             }
             if(input.length()>0) {
                 Format(',', input);

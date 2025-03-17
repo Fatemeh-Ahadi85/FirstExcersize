@@ -8,12 +8,15 @@ public class SignUp {
 
     public String UserName;
     public int Password;
+    public double balance;
 
     SignUp(){
         System.out.println("Enter your UserName: ");
         this.UserName = input.nextLine();
         System.out.println("Enter your Password: ");
         this.Password = input.nextInt();
+        System.out.println("Enter your balance: ");
+        this.balance = input.nextDouble();
     }
 
     public String getUserName(){
@@ -22,5 +25,9 @@ public class SignUp {
 
     public int getPassword(){
         return Password;
+    }
+
+    public double getBalance(){
+        return balance;
     }
 }

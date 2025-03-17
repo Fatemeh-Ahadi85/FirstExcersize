@@ -7,10 +7,12 @@ import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
 public class BankingSystem {
+    public static boolean flag = false;
     public static void main(String[] args) throws IOException, DataFormatException {
 
-        //FileOutputStream fileOutputStream = new FileOutputStream("src/FirstExersize/users.json");
-        //PrintStream printStream = new PrintStream(fileOutputStream);
+        FileOutputStream fileOutputStream = new FileOutputStream("src/FirstExersize/Users.json");
+        PrintStream printStream = new PrintStream(fileOutputStream);
+        printStream.print("[");
 
 
         Scanner scanner = new Scanner(System.in);
@@ -23,32 +25,38 @@ public class BankingSystem {
                 SignUp signUp = new SignUp();
                 String UserName = signUp.getUserName();
                 int password = signUp.getPassword();
-                //saveToJson(UserName, password,printStream);
+                double balance = signUp.getBalance();
+                saveToJson(UserName, password, balance, printStream);
 
                 System.out.println("Your account has been successfully created.");
             } else if (input.equals("login")) {
                 login login = new login();
                 login.get();
-                System.out.println("You have successfully logged in to your account.");
             } else if (input.equals("back")) {
                 System.out.println("You are in homePage.");
             }
             else if (input.equals("exit")) {
-               // printStream.print("]");
                 break;
             }
         }
     }
 
-    public static void saveToJson(String UserName, int Password,PrintStream printStream) throws IOException, DataFormatException {
+    public static void saveToJson(String UserName, int Password, double balance, PrintStream printStream){
         StringBuilder stringBuilder = new StringBuilder();
+        if(flag){
+            stringBuilder.append(",");
+        }
         stringBuilder.append("{\n");
         stringBuilder.append("    \"UserName\": ");
         stringBuilder.append("\""+UserName+"\"");
         stringBuilder.append(",\n");
         stringBuilder.append("    \"Password\": ");
         stringBuilder.append(Password);
+        stringBuilder.append(",\n");
+        stringBuilder.append("    \"Balance\": ");
+        stringBuilder.append(balance);
         stringBuilder.append("\n}\n");
         printStream.print(stringBuilder);
+        flag = true;
     }
 }
