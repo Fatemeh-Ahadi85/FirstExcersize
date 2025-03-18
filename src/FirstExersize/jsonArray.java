@@ -46,7 +46,7 @@ public class jsonArray extends jsonParser {
             else if(input.charAt(0)=='{'){
                 jsonObject jsonObject = new jsonObject();
                 list.add(jsonObject.Map(input));
-                input = input.substring(String.valueOf(jsonObject.Map(input)).length()+5);
+                input = input.substring(String.valueOf(jsonObject.Map(input)).length()+6);
             }
             if(input.length()>0) {
                 Format(',', input);

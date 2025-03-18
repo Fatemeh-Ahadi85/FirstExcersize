@@ -5,26 +5,36 @@ import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
 public class login {
-    Scanner input = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
-    private String UserName;
-    private int Password;
+    protected String UserName;
+    protected int Password;
 
     login(){
         System.out.println("Enter your UserName: ");
-        this.UserName = input.nextLine();
+        this.UserName = scanner.nextLine();
         System.out.println("Enter your Password: ");
-        this.Password = input.nextInt();
+        this.Password = scanner.nextInt();
 
     }
 
-    public Object get() throws DataFormatException, IOException {
-        isUserProfileTrue isUserProfileTrue = new isUserProfileTrue();
-        if(isUserProfileTrue.isUserExist(this.UserName,String.valueOf(this.Password))){
-            return true;
+    public Object getUserName() throws DataFormatException, IOException {
+        isUserProfileTrue isUserProfileTrue = new isUserProfileTrue(this.UserName);
+        if(isUserProfileTrue.isUserNameTrue()){
+            return this.UserName;
         }
         else {
-            System.out.println("Please Enter Your Details Carefully!");
+            System.out.println("Please Enter Your UserName Carefully!");
+            return new login();
+        }
+    }
+    public Object getPassword() throws DataFormatException, IOException {
+        isUserProfileTrue isUserProfileTrue = new isUserProfileTrue(this.UserName);
+        if(isUserProfileTrue.isPasswordTrue(String.valueOf(Password))){
+            return this.Password;
+        }
+        else {
+            System.out.println("Please Enter Your Password Carefully!");
             return new login();
         }
     }

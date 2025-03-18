@@ -14,6 +14,7 @@ public class SaveToTransactionsJson {
     private String recipient;
     private String date;
     private String time;
+    private boolean flag = false;
 
     public SaveToTransactionsJson(String type, double amount , String user, String depositor, String recipient) {
         this.type = type;
@@ -27,11 +28,22 @@ public class SaveToTransactionsJson {
         this.time = time.toString();
     }
 
-    public void write() throws FileNotFoundException {
-        FileOutputStream fileOutputStream = new FileOutputStream("src/FirstExersize/Transactions.json");
-        PrintStream printStream = new PrintStream(fileOutputStream);
+    public void write() throws IOException {
 
         StringBuilder stringBuilder = new StringBuilder();
+        History history = new History();
+        String file = history.getFile();
+        if(file.length()>0){
+            int firstIndex = file.indexOf("[");
+            int lastIndex = file.lastIndexOf("]");
+            file = file.substring(firstIndex+1,lastIndex);
+            file = file + ",";
+        }
+        FileOutputStream fileOutputStream = new FileOutputStream("src/FirstExersize/Transactions.json");
+        PrintStream printStream = new PrintStream(fileOutputStream);
+        printStream.println("[");
+        printStream.println(file);
+
         stringBuilder.append("{\n");
         stringBuilder.append("    \"type\": ");
         stringBuilder.append("\""+type+"\"");
@@ -65,5 +77,7 @@ public class SaveToTransactionsJson {
         stringBuilder.append("\""+date+" "+time+"\"");
         stringBuilder.append("\n}\n");
         printStream.print(stringBuilder);
+        printStream.println("]");
+        flag = true;
     }
 }

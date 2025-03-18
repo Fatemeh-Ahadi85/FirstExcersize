@@ -17,19 +17,19 @@ public class Dashboard {
             String input = scanner.nextLine();
 
             if(input.equals("balance")){
-                Balance balance = new Balance();
-                balance.Operation();
+                BankOperation balanceOperation = new BalanceOperation(UserName);
+                balanceOperation.Operation();
             }
             else if(input.equals("withdraw")){
-                WithdrawOperation withdrawOperation = new WithdrawOperation();
+                BankOperation withdrawOperation = new WithdrawOperation(UserName);
                 withdrawOperation.Operation();
             }
             else if(input.equals("deposit")){
-                DepositOperation depositOperation = new DepositOperation();
+                BankOperation depositOperation = new DepositOperation(UserName);
                 depositOperation.Operation();
             }
             else if(input.equals("transfer")){
-                TransferOperation transferOperation = new TransferOperation();
+                BankOperation transferOperation = new TransferOperation(UserName);
                 transferOperation.Operation();
             }
             else if(input.equals("history")){

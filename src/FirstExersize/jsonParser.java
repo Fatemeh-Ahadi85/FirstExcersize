@@ -4,25 +4,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 
-public class jsonParser {
-
+public class jsonParser{
 
     public String input;
 
     public jsonParser() throws IOException {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        FileInputStream fileInputStream = new FileInputStream("src/FirstExersize/Users.json");
-        int data;
-        while ((data = fileInputStream.read()) != -1) {
-            stringBuilder.append((char) data);
-        }
-        fileInputStream.close();
-
-        this.input = stringBuilder.toString();
+        ReadUserFile readUserFile = new ReadUserFile();
+        this.input = readUserFile.getFile();
         delete delete = new delete(input);
         input = delete.getInput();
-        input = input + "]";
+
     }
 }
 

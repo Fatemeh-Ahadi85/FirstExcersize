@@ -1,14 +1,13 @@
 package FirstExersize;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class History {
-
+public class ReadUserFile {
     public String file;
-    public History() throws IOException {
-        FileInputStream fileInputStream = new FileInputStream("src/FirstExersize/Transactions.json");
+
+    public ReadUserFile() throws IOException {
+        FileInputStream fileInputStream = new FileInputStream("src/FirstExersize/Users.json");
         StringBuilder stringBuilder = new StringBuilder();
         int data;
         while ((data = fileInputStream.read()) != -1) {
@@ -19,9 +18,7 @@ public class History {
             file = "";
         }
     }
-    public void read(){
-        System.out.println(file);
-    }
+
     public String getFile() {
         return file;
     }

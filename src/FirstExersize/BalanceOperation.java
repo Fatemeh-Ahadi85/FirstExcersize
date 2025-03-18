@@ -3,10 +3,11 @@ package FirstExersize;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 
-public class Balance extends BankOperation{
+public class BalanceOperation extends BankOperation{
 
-    public Balance() throws DataFormatException, IOException {
-        super();
+
+    public BalanceOperation(String UserName) throws IOException, DataFormatException {
+        super(UserName);
     }
 
     @Override

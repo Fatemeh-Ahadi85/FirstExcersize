@@ -10,10 +10,6 @@ public class BankingSystem {
     public static boolean flag = false;
     public static void main(String[] args) throws IOException, DataFormatException {
 
-        FileOutputStream fileOutputStream = new FileOutputStream("src/FirstExersize/Users.json");
-        PrintStream printStream = new PrintStream(fileOutputStream);
-        printStream.print("[");
-
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Ahad Banking System!");
@@ -26,12 +22,15 @@ public class BankingSystem {
                 String UserName = signUp.getUserName();
                 int password = signUp.getPassword();
                 double balance = signUp.getBalance();
-                saveToJson(UserName, password, balance, printStream);
+                saveToJson(UserName, password, balance);
 
                 System.out.println("Your account has been successfully created.");
             } else if (input.equals("login")) {
                 login login = new login();
-                login.get();
+                String userName = (String) login.getUserName();
+                login.getPassword();
+                Dashboard dashboard = new Dashboard(String.valueOf(userName));
+                dashboard.start();
             } else if (input.equals("back")) {
                 System.out.println("You are in homePage.");
             }
@@ -41,11 +40,22 @@ public class BankingSystem {
         }
     }
 
-    public static void saveToJson(String UserName, int Password, double balance, PrintStream printStream){
+    public static void saveToJson(String UserName, int Password, double balance) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
-        if(flag){
-            stringBuilder.append(",");
+        ReadUserFile readUserFile = new ReadUserFile();
+        String file = readUserFile.getFile();
+        if(file.length()>0){
+            int firstIndex = file.indexOf("[");
+            int lastIndex = file.lastIndexOf("]");
+            file = file.substring(firstIndex+1,lastIndex);
+            file = file + ",";
         }
+        FileOutputStream fileOutputStream = new FileOutputStream("src/FirstExersize/Users.json");
+        PrintStream printStream = new PrintStream(fileOutputStream);
+
+        printStream.print("[");
+        printStream.print(file);
+
         stringBuilder.append("{\n");
         stringBuilder.append("    \"UserName\": ");
         stringBuilder.append("\""+UserName+"\"");
@@ -57,6 +67,7 @@ public class BankingSystem {
         stringBuilder.append(balance);
         stringBuilder.append("\n}\n");
         printStream.print(stringBuilder);
+        printStream.println("]");
         flag = true;
     }
 }
