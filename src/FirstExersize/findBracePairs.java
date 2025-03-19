@@ -22,6 +22,11 @@ public class findBracePairs extends findPairs{
                 if(input.charAt(i-1)=='\\'){
                     isInside = !isInside;
                 }
+                else {
+                    if(isInside){
+                        isInside = false;
+                    }
+                }
             }
             if(!isInside){
                 if(ch=='{'){

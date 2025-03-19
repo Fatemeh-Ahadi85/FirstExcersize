@@ -12,7 +12,7 @@ abstract class BankOperation {
 
     public BankOperation(String UserName) throws IOException, DataFormatException {
         user = UserName;
-        isUserProfileTrue isUserProfileTrue = new isUserProfileTrue(user);
+        isUserProfileTrue isUserProfileTrue = new isUserProfileTrue(user,"src/FirstExersize/Users.json");
         balance = isUserProfileTrue.balance();
         scanner = new Scanner(System.in);
     }

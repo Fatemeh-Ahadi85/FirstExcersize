@@ -15,6 +15,7 @@ public class BankingSystem {
         System.out.println("Welcome to Ahad Banking System!");
 
         while (true) {
+            System.out.println("You are in home page ");
             String input = scanner.nextLine();
 
             if (input.equals("SignUp")) {
@@ -35,15 +36,18 @@ public class BankingSystem {
                 System.out.println("You are in homePage.");
             }
             else if (input.equals("exit")) {
-                break;
+                return;
+            }
+            else {
+                System.out.println("Invalid input");
             }
         }
     }
 
     public static void saveToJson(String UserName, int Password, double balance) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
-        ReadUserFile readUserFile = new ReadUserFile();
-        String file = readUserFile.getFile();
+        ReadFile readFile = new ReadFile("src/FirstExersize/Users.json");
+        String file = readFile.getFile();
         if(file.length()>0){
             int firstIndex = file.indexOf("[");
             int lastIndex = file.lastIndexOf("]");

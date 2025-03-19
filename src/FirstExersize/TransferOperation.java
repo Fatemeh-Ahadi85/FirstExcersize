@@ -12,29 +12,54 @@ public class TransferOperation extends BankOperation{
 
     @Override
     public void Operation() throws IOException, DataFormatException {
-        System.out.println("Whose account do you want to transfer money into ?");
-        String recipient = "";
-        isUserProfileTrue isTrue = new isUserProfileTrue(recipient);
+        System.out.println("Whose account do you want to transfer money into ?(or type back)");
+        String recipient ;
+        isUserProfileTrue isTrue;
         while (true) {
-            recipient = scanner.nextLine();
+            String input = scanner.nextLine();
+            if(input.equals("back")){
+                System.out.println("You are in Dashboard");
+                return;
+            }
+            recipient = input;
+            isTrue = new isUserProfileTrue(recipient,"src/FirstExersize/Users.json");
             if (!isTrue.isUserNameTrue()) {
-                System.out.println("Please enter a valid username");
+                System.out.println(recipient+" does not have account.");
             }
             else {
                 break;
             }
         }
-        System.out.println("Enter the amount to be transferred:");
-        double amount = Double.parseDouble(scanner.nextLine());
+        System.out.println("Enter the amount to be transferred:(or type back)");
+        double amount;
+        while(true) {
+            String input = scanner.nextLine();
+            if(input.equals("back")){
+                System.out.println("You are in Dashboard");
+                return;
+            }
+            try {
+                amount = Double.parseDouble(input);
+                if (amount <= 0) {
+                    System.out.println("Amount must be a positive number");
+                }
+                else {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number");
+            }
+        }
         if(amount > balance) {
             System.out.println("Your account balance is insufficient.");
+            return;
         }
         else {
             balance = balance - amount;
-            isUserProfileTrue isUserProfileTrue = new isUserProfileTrue(user);
-            isUserProfileTrue.updateBalance(balance);
+            isUserProfileTrue isUserProfileTrue = new isUserProfileTrue(user,"src/FirstExersize/Users.json");
+            isUserProfileTrue.updateBalance(-amount);
             isTrue.updateBalance(amount);
-            System.out.println("You deposited $" + amount+" to "+recipient);
+            System.out.println("You deposited $" + amount+" to "+recipient+".");
         }
         SaveToTransactionsJson saveToTransactionsJson = new SaveToTransactionsJson("transfer",amount,user,user,recipient);
         saveToTransactionsJson.write();

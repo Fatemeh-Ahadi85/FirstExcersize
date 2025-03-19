@@ -10,13 +10,12 @@ public class StringLiteral extends jsonLiteral{
         if(input.charAt(0)!='\"'){
             throw new DataFormatException("Your Jason format is incorrect");
         }
-        input = input.substring(1);
-        int index = 0;
-        while(input.charAt(index)!='\"'){
-            index++;
+        findPairs findStringPair = new findStringPairs(input);
+        int index = findStringPair.pairs();
+        if (index == -1) {
+            throw new DataFormatException("Your Jason format is incorrect");
         }
-        input = input.substring(0,index);
-        this.input=input;
+        this.input = input.substring(1, index);
     }
     @Override
     public Object getValue() {

@@ -5,11 +5,6 @@ public class delete {
     private String input;
 
     public delete(String input){
-//        input = input.replaceAll(" ","");
-//        input = input.replaceAll("\n","");
-//        input = input.replaceAll("\t","");
-//        input = input.replaceAll("\r","");
-//        this.input = input;
         char[] charAt = input.toCharArray();
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < charAt.length; i++) {

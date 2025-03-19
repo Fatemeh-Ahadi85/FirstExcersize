@@ -6,8 +6,8 @@ import java.util.zip.DataFormatException;
 
 public class jsonArray extends jsonParser {
 
-    public jsonArray() throws IOException {
-        super();
+    public jsonArray(String fileName) throws IOException {
+        super(fileName);
     }
     public ArrayList<Object>Array(String input) throws DataFormatException, IOException {
 
@@ -39,14 +39,15 @@ public class jsonArray extends jsonParser {
                 list.add("null");
             }
             else if (input.charAt(0)=='['){
-                jsonArray jsonArray = new jsonArray();
+                jsonArray jsonArray = new jsonArray(fileName);
                 ArrayList<Object> List = jsonArray.Array(input);
                 list.add(String.valueOf(List));
             }
             else if(input.charAt(0)=='{'){
-                jsonObject jsonObject = new jsonObject();
+                jsonObject jsonObject = new jsonObject(fileName);
                 list.add(jsonObject.Map(input));
-                input = input.substring(String.valueOf(jsonObject.Map(input)).length()+6);
+                findPairs findBracePair = new findBracePairs(input);
+                input = input.substring(findBracePair.pairs()+1);
             }
             if(input.length()>0) {
                 Format(',', input);

@@ -14,6 +14,7 @@ public class Dashboard {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome " + UserName+" !");
         while(true){
+            System.out.println("Please enter your transaction type: ");
             String input = scanner.nextLine();
 
             if(input.equals("balance")){
@@ -33,8 +34,14 @@ public class Dashboard {
                 transferOperation.Operation();
             }
             else if(input.equals("history")){
-                History history = new History();
-                history.read();
+                BankOperation history = new History(UserName);
+                history.Operation();
+            }
+            else if(input.equals("back")){
+                break;
+            }
+            else {
+                System.out.println("Invalid input");
             }
         }
     }

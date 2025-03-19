@@ -3,6 +3,7 @@ package FirstExersize;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.zip.DataFormatException;
 
 
 public class SaveToTransactionsJson {
@@ -28,10 +29,10 @@ public class SaveToTransactionsJson {
         this.time = time.toString();
     }
 
-    public void write() throws IOException {
+    public void write() throws IOException, DataFormatException {
 
         StringBuilder stringBuilder = new StringBuilder();
-        History history = new History();
+        History history = new History(user);
         String file = history.getFile();
         if(file.length()>0){
             int firstIndex = file.indexOf("[");
@@ -41,7 +42,7 @@ public class SaveToTransactionsJson {
         }
         FileOutputStream fileOutputStream = new FileOutputStream("src/FirstExersize/Transactions.json");
         PrintStream printStream = new PrintStream(fileOutputStream);
-        printStream.println("[");
+        printStream.print("[");
         printStream.println(file);
 
         stringBuilder.append("{\n");
@@ -65,7 +66,7 @@ public class SaveToTransactionsJson {
             stringBuilder.append("\""+depositor+"\"");
             stringBuilder.append(",\n");
             stringBuilder.append("    \"to\": ");
-            stringBuilder.append("\""+"you"+"\"");
+            stringBuilder.append("\""+user+"\"");
         }
         else{
             stringBuilder.append(",\n");
@@ -74,7 +75,7 @@ public class SaveToTransactionsJson {
         }
         stringBuilder.append(",\n");
         stringBuilder.append("    \"date&time\": ");
-        stringBuilder.append("\""+date+" "+time+"\"");
+        stringBuilder.append("\""+date+"   "+time+"\"");
         stringBuilder.append("\n}\n");
         printStream.print(stringBuilder);
         printStream.println("]");

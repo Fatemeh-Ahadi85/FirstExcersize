@@ -10,32 +10,35 @@ public class login {
     protected String UserName;
     protected int Password;
 
-    login(){
-        System.out.println("Enter your UserName: ");
-        this.UserName = scanner.nextLine();
-        System.out.println("Enter your Password: ");
-        this.Password = scanner.nextInt();
-
-    }
-
     public Object getUserName() throws DataFormatException, IOException {
-        isUserProfileTrue isUserProfileTrue = new isUserProfileTrue(this.UserName);
+        System.out.println("Enter your UserName: ");
+        UserName = scanner.nextLine();
+        if(UserName.equals("back")) {
+            return "back";
+        }
+        isUserProfileTrue isUserProfileTrue = new isUserProfileTrue(this.UserName,"src/FirstExersize/Users.json");
         if(isUserProfileTrue.isUserNameTrue()){
             return this.UserName;
         }
         else {
             System.out.println("Please Enter Your UserName Carefully!");
-            return new login();
+            return getUserName();
         }
     }
     public Object getPassword() throws DataFormatException, IOException {
-        isUserProfileTrue isUserProfileTrue = new isUserProfileTrue(this.UserName);
+        System.out.println("Enter your Password: ");
+        String i =  scanner.nextLine();
+        if(i.equals("back")){
+            return "back";
+        }
+        Password = Integer.parseInt(i);
+        isUserProfileTrue isUserProfileTrue = new isUserProfileTrue(this.UserName,"src/FirstExersize/Users.json");
         if(isUserProfileTrue.isPasswordTrue(String.valueOf(Password))){
             return this.Password;
         }
         else {
             System.out.println("Please Enter Your Password Carefully!");
-            return new login();
+            return getPassword();
         }
     }
 }

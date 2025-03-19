@@ -12,6 +12,6 @@ public class BalanceOperation extends BankOperation{
 
     @Override
     public void Operation() {
-        System.out.println("Your balance is "+ balance);
+        System.out.println("Your balance is $"+ balance+".");
     }
 }

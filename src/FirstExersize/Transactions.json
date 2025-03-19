@@ -1,17 +1,24 @@
 [
 {
     "type": "deposit",
-    "amount": 100.0,
+    "amount": 500.0,
     "from": "System",
-    "to": "you",
-    "date&time": "2025-03-18 18:16:02.301526800"
+    "to": "Han",
+    "date&time": "2025-03-19   21:06:53.711452"
 }
 ,
 {
-    "type": "deposit",
-    "amount": 200.0,
-    "from": "System",
-    "to": "you",
-    "date&time": "2025-03-18 18:16:06.584101500"
+    "type": "withdraw",
+    "amount": 350.0,
+    "user": "ana",
+    "date&time": "2025-03-19   21:07:47.828052700"
+}
+,
+{
+    "type": "transfer",
+    "amount": 420.0,
+    "from": "ana",
+    "to": "ali",
+    "date&time": "2025-03-19   21:11:10.798208500"
 }
 ]

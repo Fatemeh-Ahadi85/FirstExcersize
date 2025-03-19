@@ -6,8 +6,8 @@ import java.util.zip.DataFormatException;
 
 public class jsonObject extends jsonParser {
 
-    public jsonObject() throws IOException, DataFormatException {
-        super();
+    public jsonObject(String fileName) throws IOException, DataFormatException {
+        super(fileName);
     }
 
     public HashMap<String,Object> Map(String input) throws DataFormatException, IOException {
@@ -43,12 +43,12 @@ public class jsonObject extends jsonParser {
 
     public String getKey(String input) throws DataFormatException {
         Format('\"',input);
-        input = input.substring(1, input.length() - 1);
-        int index = input.indexOf('\"');
+        findPairs findStringPair = new findStringPairs(input);
+        int index = findStringPair.pairs();
         if (index == -1) {
             throw new DataFormatException("Your Jason format is incorrect");
         }
-        input = input.substring(0, index);
+        input = input.substring(1, index);
         return input;
     }
 
@@ -74,11 +74,11 @@ public class jsonObject extends jsonParser {
             return "null";
         }
         else if (input.charAt(0)=='{'){
-            jsonObject object = new jsonObject();
+            jsonObject object = new jsonObject(fileName);
             return object.Map(input);
         }
         else if (input.charAt(0)=='['){
-            jsonArray jsonArray = new jsonArray();
+            jsonArray jsonArray = new jsonArray(fileName);
             return jsonArray.Array(input);
         }
         return "Your Jason format is incorrect";
